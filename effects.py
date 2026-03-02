@@ -15,6 +15,7 @@ class CenterText(Effect):
             Screen.COLOUR_MAGENTA,
             Screen.COLOUR_YELLOW,
         ]
+        self._spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
 
     def stop_frame(self):
         pass
@@ -24,18 +25,15 @@ class CenterText(Effect):
 
     def _update(self, frame_no):
         colour = self._colours[(frame_no // 5) % len(self._colours)]
+        current_spinner_char = self._spinner_chars[
+            (frame_no // 5) % len(self._spinner_chars)
+        ]
         x = (self._screen.width - len(self._text)) // 2
 
-        # Draw a box around the text
-        box_width = len(self._text) + 4
-        box_x = x - 2
-
         self._screen.print_at(
-            "╔" + "═" * (box_width - 2) + "╗", box_x, self._y - 1, colour
-        )
-        self._screen.print_at(
-            "║ " + self._text + " ║", box_x, self._y, colour, attr=Screen.A_BOLD
-        )
-        self._screen.print_at(
-            "╚" + "═" * (box_width - 2) + "╝", box_x, self._y + 1, colour
+            f"{current_spinner_char} {self._text} {current_spinner_char}",
+            x,
+            self._y,
+            colour,
+            attr=Screen.A_BOLD,
         )

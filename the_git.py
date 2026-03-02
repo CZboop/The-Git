@@ -1,22 +1,18 @@
-from asciimatics.effects import Print, Cycle
-from asciimatics.renderers import FigletText, StaticRenderer
+import sys
+
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
-from asciimatics.sprites import Arrow, Sprite
-from asciimatics.paths import Path
-from asciimatics.effects import Effect
-import sys
+
 from effects import CenterText
-import random
 
 
-def the_git(screen: Screen):
+def the_git(screen: Screen) -> None:
     """Main animation looping forever
 
     Args:
-        screen (Screen): _description_
+        screen (Screen): Screen passed from wrapper
     """
-    center_x = screen.width // 2
+    # center_x = screen.width // 2
     center_y = screen.height // 2
     effects = [CenterText(screen, "THE GIT HAPPENS HERE", center_y)]
 
