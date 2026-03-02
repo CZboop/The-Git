@@ -3,7 +3,7 @@ import sys
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 
-from effects import CenterText, Computer
+from effects import COMPUTER_SHAPE, CenterText, Computer
 
 
 def the_git(screen: Screen) -> None:
@@ -16,23 +16,25 @@ def the_git(screen: Screen) -> None:
     center_y = screen.height // 2
 
     # computer positions
+    computer_width = len(COMPUTER_SHAPE[0])
+    computer_height = len(COMPUTER_SHAPE)
+
     positions = {
-        "top_left": (center_x - 25, center_y - 8),
-        "top_right": (center_x + 10, center_y - 8),
-        "bottom_left": (center_x - 25, center_y + 4),
-        "bottom_right": (center_x + 10, center_y + 4),
-        "top_middle": (center_x, center_y - 8),
-        "bottom_middle": (center_x, center_y + 4),
+        "top_left": (
+            center_x - int(computer_width * 2),
+            center_y - computer_height // 2,
+        ),
+        "top_right": (center_x + (computer_width), center_y - computer_height // 2),
+        # "bottom_left": (center_x - int(computer_width*1.5), center_y + computer_height),
+        # "bottom_right": (center_x + (computer_width//2), center_y + computer_height),
     }
 
     effects = [
         CenterText(screen, "THE GIT HAPPENS HERE", center_y),
         Computer(screen, positions["top_left"][0], positions["top_left"][1]),
         Computer(screen, positions["top_right"][0], positions["top_right"][1]),
-        Computer(screen, positions["bottom_left"][0], positions["bottom_left"][1]),
-        Computer(screen, positions["bottom_right"][0], positions["bottom_right"][1]),
-        Computer(screen, positions["top_middle"][0], positions["top_middle"][1]),
-        Computer(screen, positions["bottom_middle"][0], positions["bottom_middle"][1]),
+        # Computer(screen, positions["bottom_left"][0], positions["bottom_left"][1]),
+        # Computer(screen, positions["bottom_right"][0], positions["bottom_right"][1]),
     ]
 
     scenes = [

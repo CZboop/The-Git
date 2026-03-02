@@ -2,23 +2,23 @@ from asciimatics.effects import Effect
 from asciimatics.screen import Screen
 
 COMPUTER_SHAPE = [
-    ".----------------------------.",
-    "/                           / |",
-    "/_  __ _____________________/  |",
-    "|                            |  |",
-    "|    _____________________   |  |",
-    "|   |                     |  |  |",
-    ".---|                     |--.  |",
-    "|   |                     |  |  |",
-    "|   |                     |  |  |",
-    "|   |_____________________|  |  |",
-    "|     (O)            :::     |  |",
-    "|____________________________|/",
-    "           |       |",
-    ".----------|       |----------.",
-    "/   [=][=][=][=][=][=][=][=]   /|",
-    "/   [=][=][=][=][=][=][=][=]   / /",
-    "/   [==================][=]    / /",
+    "       .----------------------------.",
+    "      /                           / |",
+    "     /_  __ _____________________/  |",
+    "    |                            |  |",
+    "    |    _____________________   |  |",
+    "    |   |                     |  |  |",
+    "    .---|                     |--.  |",
+    "    |   |                     |  |  |",
+    "    |   |                     |  |  |",
+    "    |   |_____________________|  |  |",
+    "    |     (O)            :::     |  |",
+    "    |____________________________|/",
+    "               |       |",
+    "    .----------|       |----------.",
+    "   /   [=][=][=][=][=][=][=][=]   /|",
+    "  /   [=][=][=][=][=][=][=][=]   / /",
+    " /   [==================][=]    / /",
     "/______________________________/ /",
     "|______________________________|/",
 ]
@@ -59,12 +59,6 @@ class CenterText(Effect):
         super().__init__(screen, **kwargs)
         self._text = text
         self._y = y
-        self._colours = [
-            Screen.COLOUR_WHITE,
-            Screen.COLOUR_CYAN,
-            Screen.COLOUR_MAGENTA,
-            Screen.COLOUR_YELLOW,
-        ]
         self._spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
 
     @property
@@ -75,12 +69,13 @@ class CenterText(Effect):
         pass
 
     def _update(self, frame_no):
-        colour = self._colours[(frame_no // 5) % len(self._colours)]
+        colour = Screen.COLOUR_GREEN
         current_spinner_char = self._spinner_chars[
             (frame_no // 5) % len(self._spinner_chars)
         ]
         x = (self._screen.width - len(self._text)) // 2
 
+        # TODO: convert text to figlet? but needs render per-line not just print, and prob split into words for width
         self._screen.print_at(
             f"{current_spinner_char} {self._text} {current_spinner_char}",
             x,
