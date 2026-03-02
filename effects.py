@@ -24,6 +24,34 @@ COMPUTER_SHAPE = [
 ]
 
 
+class GitLine(Effect):
+    """Line representing the path that git takes"""
+
+    def __init__(self, screen, x, y, **kwargs):
+        super().__init__(screen, **kwargs)
+        self._x = x
+        self._y = y
+
+    def reset(self):
+        pass
+
+    def _update(self, frame_no):
+        line = "--------------------------------------------------------------------"
+        arrow_pos = (frame_no // 5) % len(line)
+        start_x = self._x - len(line) // 2
+        current_line = line[:arrow_pos] + ">" + line[arrow_pos + 1 :]
+        self._screen.print_at(
+            current_line, start_x, self._y + 5, Screen.COLOUR_GREEN, attr=Screen.A_BOLD
+        )
+        self._screen.print_at(
+            current_line, start_x, self._y - 5, Screen.COLOUR_GREEN, attr=Screen.A_BOLD
+        )
+
+    @property
+    def stop_frame(self):
+        return 0
+
+
 class Computer(Effect):
     """Draw computer ASCII art at given fixed position."""
 

@@ -3,7 +3,7 @@ import sys
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 
-from effects import COMPUTER_SHAPE, CenterText, Computer
+from effects import COMPUTER_SHAPE, CenterText, Computer, GitLine
 
 
 def the_git(screen: Screen) -> None:
@@ -25,16 +25,13 @@ def the_git(screen: Screen) -> None:
             center_y - computer_height // 2,
         ),
         "top_right": (center_x + (computer_width), center_y - computer_height // 2),
-        # "bottom_left": (center_x - int(computer_width*1.5), center_y + computer_height),
-        # "bottom_right": (center_x + (computer_width//2), center_y + computer_height),
     }
 
     effects = [
         CenterText(screen, "THE GIT HAPPENS HERE", center_y),
         Computer(screen, positions["top_left"][0], positions["top_left"][1]),
         Computer(screen, positions["top_right"][0], positions["top_right"][1]),
-        # Computer(screen, positions["bottom_left"][0], positions["bottom_left"][1]),
-        # Computer(screen, positions["bottom_right"][0], positions["bottom_right"][1]),
+        GitLine(screen, center_x, center_y),
     ]
 
     scenes = [
