@@ -37,7 +37,7 @@ class GitLine(Effect):
 
     def _update(self, frame_no):
         line = "--------------------------------------------------------------------"
-        arrow_pos = (frame_no // 5) % len(line)
+        arrow_pos = (frame_no // 2) % len(line)
         start_x = self._x - len(line) // 2
         current_line = line[:arrow_pos] + ">" + line[arrow_pos + 1 :]
         self._screen.print_at(
