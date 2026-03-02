@@ -1,6 +1,56 @@
 from asciimatics.effects import Effect
 from asciimatics.screen import Screen
 
+COMPUTER_SHAPE = [
+    ".----------------------------.",
+    "/                           / |",
+    "/_  __ _____________________/  |",
+    "|                            |  |",
+    "|    _____________________   |  |",
+    "|   |                     |  |  |",
+    ".---|                     |--.  |",
+    "|   |                     |  |  |",
+    "|   |                     |  |  |",
+    "|   |_____________________|  |  |",
+    "|     (O)            :::     |  |",
+    "|____________________________|/",
+    "           |       |",
+    ".----------|       |----------.",
+    "/   [=][=][=][=][=][=][=][=]   /|",
+    "/   [=][=][=][=][=][=][=][=]   / /",
+    "/   [==================][=]    / /",
+    "/______________________________/ /",
+    "|______________________________|/",
+]
+
+
+class Computer(Effect):
+    """Draw computer ASCII art at given fixed position."""
+
+    def __init__(self, screen, x, y, label="", **kwargs):
+        super().__init__(screen, **kwargs)
+        self._x = x
+        self._y = y
+        self._label = label
+
+    def reset(self):
+        pass
+
+    def _update(self, frame_no):
+        for i, line in enumerate(COMPUTER_SHAPE):
+            self._screen.print_at(
+                line, self._x, self._y + i, Screen.COLOUR_GREEN, attr=Screen.A_BOLD
+            )
+        if self._label:
+            label_x = self._x + (len(COMPUTER_SHAPE[0]) - len(self._label)) // 2
+            self._screen.print_at(
+                self._label, label_x, self._y - 1, Screen.COLOUR_WHITE
+            )
+
+    @property
+    def stop_frame(self):
+        return 0
+
 
 class CenterText(Effect):
     """Pulsing center text effect."""
@@ -17,8 +67,9 @@ class CenterText(Effect):
         ]
         self._spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
 
+    @property
     def stop_frame(self):
-        pass
+        return 0
 
     def reset(self):
         pass
