@@ -1,3 +1,5 @@
+import random
+
 from asciimatics.effects import Effect
 from asciimatics.screen import Screen
 
@@ -22,6 +24,68 @@ COMPUTER_SHAPE = [
     "/______________________________/ /",
     "|______________________________|/",
 ]
+
+
+class Sparkles(Effect):
+    """Random sparkles around specific areas."""
+
+    def __init__(self, screen, positions, radius=10, density=0.3, **kwargs):
+        super().__init__(screen, **kwargs)
+        self._positions: list[tuple[int, int]] = positions  # x, y tuples
+        self._radius = radius
+        self._density = density
+        self._sparkle_chars = [
+            "*",
+            "✦",
+            "✧",
+            "·",
+            "°",
+            "⁕",
+            "✱",
+            "✲",
+            "✱",
+            "✲",
+            "✳",
+            "✴",
+            "✵",
+            "✶",
+            "*",
+            "✱",
+            "✳",
+            "✵",
+            "✷",
+        ]
+        self._sparkles = []  # active sparkles tracked
+
+    def reset(self):
+        self._sparkles = []
+
+    def _update(self, frame_no):
+        # spawn new sparkles randomly
+        for cx, cy in self._positions:
+            if random.random() < self._density:
+                x = cx + random.randint(-self._radius, self._radius)
+                y = cy + random.randint(-self._radius, self._radius)
+                char = random.choice(self._sparkle_chars)
+                lifetime = random.randint(3, 7)
+                self._sparkles.append([x, y, char, lifetime])
+
+        # draw and age/remove sparkles
+        # TODO: some sparkles not disappearing after they spawn?
+        new_sparkles = []
+        for sparkle in self._sparkles:
+            x, y, char, lifetime = sparkle
+            if lifetime > 0:
+                colour = random.choice([Screen.COLOUR_CYAN, Screen.COLOUR_GREEN])
+                self._screen.print_at(char, x, y, colour)
+                sparkle[3] -= 1
+                new_sparkles.append(sparkle)
+
+        self._sparkles = new_sparkles
+
+    @property
+    def stop_frame(self):
+        return 0
 
 
 class GitLine(Effect):
