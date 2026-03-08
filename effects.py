@@ -67,19 +67,21 @@ class Sparkles(Effect):
                 x = cx + random.randint(-self._radius, self._radius)
                 y = cy + random.randint(-self._radius, self._radius)
                 char = random.choice(self._sparkle_chars)
-                lifetime = random.randint(3, 7)
+                lifetime = random.randint(2, 10)
                 self._sparkles.append([x, y, char, lifetime])
 
         # draw and age/remove sparkles
-        # TODO: some sparkles not disappearing after they spawn?
         new_sparkles = []
         for sparkle in self._sparkles:
             x, y, char, lifetime = sparkle
             if lifetime > 0:
-                colour = random.choice([Screen.COLOUR_CYAN, Screen.COLOUR_GREEN])
+                colour = random.choice([Screen.COLOUR_WHITE, Screen.COLOUR_GREEN])
                 self._screen.print_at(char, x, y, colour)
                 sparkle[3] -= 1
                 new_sparkles.append(sparkle)
+            # clear the sparkle once time to live runs out (space in its place)
+            else:
+                self._screen.print_at(" ", x, y)
 
         self._sparkles = new_sparkles
 
