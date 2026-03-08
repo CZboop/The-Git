@@ -79,7 +79,7 @@ class Sparkles(Effect):
         for sparkle in self._sparkles:
             x, y, char, lifetime = sparkle
             if lifetime > 0:
-                colour = random.choice([Screen.COLOUR_WHITE])
+                colour = Screen.COLOUR_WHITE
                 self._screen.print_at(char, x, y, colour)
                 sparkle[3] -= 1
                 new_sparkles.append(sparkle)
