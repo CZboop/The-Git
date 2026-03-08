@@ -39,7 +39,8 @@ def the_git(screen: Screen) -> None:
     ]
 
     effects = [
-        CenterText(screen, "THE GIT HAPPENS HERE", center_y),
+        CenterText(screen, "THE GIT HAPPENS", center_y - computer_height + 2),
+        CenterText(screen, "HERE", center_y - 3),
         Computer(screen, positions["top_left"][0], positions["top_left"][1]),
         Computer(screen, positions["top_right"][0], positions["top_right"][1]),
         GitLine(screen, center_x, center_y),

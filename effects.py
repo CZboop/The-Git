@@ -1,6 +1,7 @@
 import random
 
 from asciimatics.effects import Effect
+from asciimatics.renderers import FigletText
 from asciimatics.screen import Screen
 
 COMPUTER_SHAPE = [
@@ -208,6 +209,9 @@ class CenterText(Effect):
         self._text = text
         self._y = y
         self._spinner_chars = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+        self._fig = FigletText(text, font="banner4")
+        images = list(self._fig.rendered_text)
+        self._image = images[0]
 
     @property
     def stop_frame(self):
@@ -218,16 +222,7 @@ class CenterText(Effect):
 
     def _update(self, frame_no):
         colour = Screen.COLOUR_GREEN
-        current_spinner_char = self._spinner_chars[
-            (frame_no // 5) % len(self._spinner_chars)
-        ]
-        x = (self._screen.width - len(self._text)) // 2
+        x = (self._screen.width - self._fig.max_width) // 2
 
-        # TODO: convert text to figlet? but needs render per-line not just print, and prob split into words for width
-        self._screen.print_at(
-            f"{current_spinner_char} {self._text} {current_spinner_char}",
-            x,
-            self._y,
-            colour,
-            attr=Screen.A_BOLD,
-        )
+        for i, line in enumerate(self._image):
+            self._screen.print_at(line, x, self._y + i, colour, attr=Screen.A_BOLD)
