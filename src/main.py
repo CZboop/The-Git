@@ -3,7 +3,7 @@ import sys
 from asciimatics.scene import Scene
 from asciimatics.screen import Screen
 
-from src.components import COMPUTER_SHAPE, CenterText, Computer, GitLine, Sparkles
+from src.effects import COMPUTER_SHAPE, CenterText, Computer, GitLine, Sparkles
 
 
 def the_git(screen: Screen) -> None:
