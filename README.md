@@ -12,4 +12,4 @@ Check it out in action:
 ![ascii terminal animation of two computers with arrows moving between them, and text that says "the git happens here"](./media/the_git.gif)
 
 ## Inspiration 💡
-Inspired by [this piece of art](https://rhizome.org/events/the-art-happens-here-net-art-anthology-launch/), that very helpfully illustrates exactly how Net Art works.
+Inspired by [this piece of art](https://en.wikipedia.org/wiki/Internet_art#/media/File:Simple_Net_Art_Diagram.svg), that very helpfully illustrates exactly how Net Art works.
